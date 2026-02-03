@@ -1,9 +1,10 @@
 # Creates base Image of container 
-FROM debian:bookworm
+FROM debian:bullseye
 
 # Install MariaDB server and delete pre-installed package list to compromise image -y automatically confirms installation
 RUN apt update && apt install -y mariadb-server && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/lib/mysql/*
 
 # Copy custom configuration file and initialization SQL script into the container
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/.

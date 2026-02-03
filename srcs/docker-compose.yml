@@ -8,7 +8,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ./web:/var/www/html
+      - wp_data:/var/www/html
     depends_on:
       - mariadb
       - wordpress
@@ -17,7 +17,7 @@ services:
     container_name: wp-php
     restart: always
     volumes:
-      - ./web:/var/www/html
+      - wp_data:/var/www/html
     depends_on:
       - mariadb
     environment:
@@ -36,7 +36,7 @@ services:
     container_name: mariadb
     restart: always
     volumes:
-      - ./data:/var/lib/mysql
+      - db_data:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
@@ -45,6 +45,9 @@ services:
     secrets: 
       - mysql_root_password
       - mysql_password
+volumes: 
+  db_data: 
+  wp_data: 
 secrets: 
   mysql_root_password: 
     file: ../secrets/mysql_root_password.txt

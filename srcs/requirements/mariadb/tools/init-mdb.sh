@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+set -e
 
 # 1. Verzeichnisse vorbereiten
 mkdir -p /run/mysqld

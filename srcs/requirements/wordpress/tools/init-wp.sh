@@ -1,5 +1,8 @@
-#!/bin/bash
+#!/bin/sh
+set -e
 cd /var/www/html
+
+mkdir -p /run/php
 
 # Check if WordPress is already installed
 if [ ! -f wp-config.php ]; then
@@ -34,4 +37,4 @@ if [ ! -f wp-config.php ]; then
 fi 
 
 # Start PHP-FPM in foreground
-exec php-fpm8.2 -F
+exec php-fpm7.4 -F
