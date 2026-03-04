@@ -48,39 +48,63 @@ docker compose version
 4. Use the provided **setup script** to generate credentials and environment files.
 
 The setup script (`setup.sh`) does the following: 
-- Creates a `secrets/` directory.
-- Generates secure random passwords for MySQL and WordPress using OpenSSL.
-- Restricts access to secrets (chmod 600).
-- Creates `.env` if it doesn't exist.
-- Adds `.env` and `secrets/` to `.gitignore`.
 
-Run the **setup script**:
-```bash
-bash setup.sh
-# or
-chmod +x setup.sh && ./setup.sh
-```
+- **Creates configuration files** to hold the required environment variables.
+- **Generates random passwords** for database and WordPress users.
 
-5. Build and start the containers:
-   Navigate to the root directory (where the Makefile is) and run:
-   ```bash
-   make up
-   ```
-   This builds the Docker images and starts all containers in the background.
+---
 
-## 4. Stopping the Project
+## 4. How to Access the Website
 
-To stop the containers (data remains persistent):
-```bash
-make down
-```
+Once the project is running (e.g., via `make`), you can access the WordPress site at:
 
-To stop and **remove all data** (clean slate):
-```bash
-make fclean
-```
+[https://mknoll.42.fr](https://mknoll.42.fr)
 
-## 5. Accessing the Website and Administration Panel
+*(Note: You may need to bypass the security warning for the self-signed certificate in your browser.)*
+
+---
+
+## 5. How to Log into the Database
+
+To verify the database contents or troubleshoot, you can access the MariaDB service directly.
+
+1.  **Find the container ID or name:**
+    ```bash
+    docker ps
+    # Look for the container named 'mariadb'
+    ```
+
+2.  **Access the container shell:**
+    ```bash
+    docker exec -it mariadb bash
+    ```
+
+3.  **Log into the SQL console:**
+    Use the database user and password defined in your configuration.
+    
+    *Typically:*
+    - **User:** `wp_user` (or check your `.env` file)
+    - **Password:** The content of `secrets/wp_db_password.txt`
+
+    Run the following command inside the container:
+    ```bash
+    mariadb -u wp_user -p
+    # Enter the password when prompted
+    ```
+
+4.  **Verify Database Content:**
+    Once logged in (`MariaDB [(none)]>`), you can run SQL commands:
+    ```sql
+    SHOW DATABASES;
+    USE wordpress;
+    SHOW TABLES;
+    SELECT * FROM wp_users;
+    ```
+    To exit, type `exit`.
+
+---
+
+## 6. Accessing the Website and Administration Panel
 
 - **Website**: Open your browser and navigate to:
   https://mknoll.42.fr
@@ -90,7 +114,7 @@ make fclean
 - **WordPress Admin Panel**:
   https://mknoll.42.fr/wp-admin
 
-## 6. Locating and Managing Credentials
+## 7. Locating and Managing Credentials
 
 The setup script secures credentials and stores them in the `secrets/` directory:
 
@@ -101,7 +125,7 @@ The setup script secures credentials and stores them in the `secrets/` directory
 Environment variables are stored in `srcs/.env`.
 *Note: These files are ignored by Git and protected via permissions (chmod 600).*
 
-## 7. Checking Service Status
+## 8. Checking Service Status
 
 To verify the services are running correctly:
 
