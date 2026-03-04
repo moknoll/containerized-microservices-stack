@@ -2,17 +2,25 @@ NAME = inception
 
 COMPOSE = docker-compose -f srcs/docker-compose.yml
 
-DATA_PATH = /home/$(USER)/data
+UNAME_S := $(shell uname -s)
+
+# Pfadsetzung
+ifeq ($(UNAME_S),Darwin)
+    DATA_PATH := /Users/$(USER)/data
+else
+    DATA_PATH := /home/$(USER)/data
+endif
 
 all: folders up
 
 folders: 
+	@echo "Setup data folders at: $(DATA_PATH)"
 	@mkdir -p $(DATA_PATH)/mariadb
 	@mkdir -p $(DATA_PATH)/wordpress
 
-
 up:
-	$(COMPOSE) up -d --build
+	# Hier übergeben wir DATA_PATH als Environment-Variable an den Befehl
+	DATA_PATH=$(DATA_PATH) $(COMPOSE) up -d --build
 
 down:
 	$(COMPOSE) down
