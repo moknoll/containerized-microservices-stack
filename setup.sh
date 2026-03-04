@@ -23,8 +23,8 @@ WORDPRESS_DB_USER=wp_user
 WORDPRESS_DB_NAME=wordpress
 MYSQL_DATABASE=wordpress
 MYSQL_USER=wp_user
-WP_ADMIN_USER=admin
-WP_ADMIN_EMAIL=admin@inception.local
+WP_ADMIN_USER=moritz
+WP_ADMIN_EMAIL=moritz@inception.local
 EOF
 
 # Add secrets and .env to .gitignore (in main project folder)
