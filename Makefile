@@ -4,7 +4,7 @@ COMPOSE = docker-compose -f srcs/docker-compose.yml
 
 UNAME_S := $(shell uname -s)
 
-# Pfadsetzung
+# Set path for macos or linux
 ifeq ($(UNAME_S),Darwin)
     DATA_PATH := /Users/$(USER)/data
 else

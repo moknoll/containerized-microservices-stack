@@ -5,20 +5,21 @@ cd /var/www/html
 mkdir -p /run/php
 
 # Check if WordPress is already installed
-if [ ! -f wp-config.php ]; then
-
-    # 1. WP-CLI Download and Installation
+if [ ! -f wp-cli.phar ]; then
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     chmod +x wp-cli.phar
+fi
 
-    # Wait for a few seconds
-    sleep 10
-
-    # 2. WordPress Core Download
+# 2. WordPress Core Download (only if missing)
+# Prevents "Error: WordPress files seem to already exist"
+if [ ! -f index.php ]; then
     ./wp-cli.phar core download --allow-root
+fi
 
-    echo "Debug: DB Password is: $(cat /run/secrets/wp_db_password)"
-    # 3. wp-config.php Creation
+# 3. Configuration & Installation (only if config missing)
+if [ ! -f wp-config.php ]; then
+
+    # Create config
     ./wp-cli.phar config create \
      --dbname=${WORDPRESS_DB_NAME} \
      --dbuser=${WORDPRESS_DB_USER} \
@@ -26,7 +27,7 @@ if [ ! -f wp-config.php ]; then
      --dbhost=${WORDPRESS_DB_HOST} \
      --allow-root
 
-    # 4. Database Installation
+    # Database Installation
     ./wp-cli.phar core install \
      --url="mknoll.42.fr" \
      --title="Inception" \

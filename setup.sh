@@ -21,6 +21,7 @@ MYSQL_DATABASE=wordpress
 MYSQL_USER=wp_user
 WP_ADMIN_USER=moritz
 WP_ADMIN_EMAIL=moritz@inception.local
+URL=mknoll.42.fr
 EOF
 
 # Add secrets and .env to .gitignore (in main project folder)

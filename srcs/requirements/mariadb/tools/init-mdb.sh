@@ -1,29 +1,29 @@
 #!/bin/sh
 set -e
 
-# 1. Verzeichnisse vorbereiten
+# 1. Prepare 
 mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld
 chown -R mysql:mysql /var/lib/mysql
 
-# 2. Initialisierung (nur wenn DB noch leer ist)
+# 2. Initialize
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "Initializing MariaDB..."
     
-    # DB-Dateien anlegen
+    # setup Db_data
     mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql --rpm > /dev/null
 
-    # Temp-Datei für SQL erstellen
+    # Temp-data for sql 
     tfile=`mktemp`
     if [ ! -f "$tfile" ]; then
         return 1
     fi
 
-    # Passwörter sicher aus den Secrets lesen
+    # Set passwords
     DB_ROOT_PASS=$(cat $MYSQL_ROOT_PASSWORD_FILE)
     DB_USER_PASS=$(cat $MYSQL_PASSWORD_FILE)
 
-    # Hier wird dein SQL dynamisch generiert (mit den richtigen Variablen!)
+    # Dynamically setup SQL
     cat << EOF > $tfile
 USE mysql;
 FLUSH PRIVILEGES;
