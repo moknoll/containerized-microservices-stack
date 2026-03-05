@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Create data directories on host (as required by project)
-# mkdir -p /home/$USER/data/mariadb
-# mkdir -p /home/$USER/data/wordpress
-
 # Create secrets directory in main project folder
 mkdir -p ./secrets
 

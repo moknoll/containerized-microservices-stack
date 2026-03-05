@@ -19,7 +19,6 @@ folders:
 	@mkdir -p $(DATA_PATH)/wordpress
 
 up:
-	# Hier übergeben wir DATA_PATH als Environment-Variable an den Befehl
 	DATA_PATH=$(DATA_PATH) $(COMPOSE) up -d --build
 
 down:
@@ -29,7 +28,7 @@ start:
 	$(COMPOSE) start
 
 clean:
-	$(COMPOSE) down --volumes --remove-orphans
+	$(COMPOSE) down --remove-orphans
 
 fclean: down
 	docker system prune -a --volumes -f
