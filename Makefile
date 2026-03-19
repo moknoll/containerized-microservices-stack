@@ -22,13 +22,13 @@ up:
 	DATA_PATH=$(DATA_PATH) $(COMPOSE) up -d --build
 
 down:
-	$(COMPOSE) down
+	DATA_PATH=$(DATA_PATH) $(COMPOSE) down
 
 start:
-	$(COMPOSE) start
+	DATA_PATH=$(DATA_PATH) $(COMPOSE) start
 
 clean:
-	$(COMPOSE) down --remove-orphans
+	DATA_PATH=$(DATA_PATH) $(COMPOSE) down --remove-orphans
 
 fclean: down
 	docker system prune -a --volumes -f
