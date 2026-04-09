@@ -34,7 +34,17 @@ The goal is to orchestrate multiple containers, manage persistent data with volu
 
 The containers are connected via a user-defined Docker network:
 
-NGINX ⇄ WordPress ⇄ MariaDB
+     ┌──────────┐
+     │ NGINX    │   ← Reverse Proxy
+     └─────┬────┘
+           │
+  ┌────────┴────────┐
+  │     WordPress   │
+  └────────┬────────┘
+           │
+  ┌────────┴────────┐
+  │    MariaDB DB   │
+  └─────────────────┘
 
 
 - NGINX acts as the web entrypoint and reverse proxy
