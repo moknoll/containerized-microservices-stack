@@ -34,7 +34,7 @@ The goal is to orchestrate multiple containers, manage persistent data with volu
 
 The containers are connected via a user-defined Docker network:
 
-![Architecture Overview](/Users/moritzknoll/Desktop/screenshot.png)
+![Architecture Overview](/images/screenshot.png)
 
 
 - NGINX acts as the web entrypoint and reverse proxy
