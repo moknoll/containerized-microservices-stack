@@ -43,7 +43,14 @@ The containers are connected via a user-defined Docker network:
 
 ## Build & Run
 
-Please refer to the USER_DOC.md mor DEV_DOC.md for a detailed setup. 
+1. Clone the repository  
+2. Run `./setup.sh`  
+3. Execute `make up`  
+4. Visit https://localhost
+
+For detailed information: 
+- USER_DOC.md
+- DEV_DOC.md
 
 ## Persistent Storage
 
