@@ -1,21 +1,17 @@
 #!/bin/sh
 set -e
 
-# Create SSL certificates directory
 mkdir -p /etc/nginx/certs
 
-# Generate SSL certificate if it doesn't exist
 if [ ! -f "/etc/nginx/certs/server.crt" ]; then
     echo "Generating SSL certificate..."
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         -keyout /etc/nginx/certs/server.key \
         -out /etc/nginx/certs/server.crt \
-        -subj "/C=DE/ST=Bavaria/L=Munich/O=42School/OU=Student/CN=mknoll.42.fr"
+        -subj "/C=FR/ST=Île-de-France/L=Paris/O=42/CN=mknoll.42.fr" \
+        -addext "subjectAltName=DNS:mknoll.42.fr,DNS:localhost"
+    echo "Certificate generated successfully"
 fi
 
-if [ "$#" -eq 0 ]; then
-  echo "Starting nginx..."
-  exec nginx -g 'daemon off;'
-else
-  exec "$@"
-fi
+echo "Starting nginx..."
+exec nginx -g 'daemon off;'

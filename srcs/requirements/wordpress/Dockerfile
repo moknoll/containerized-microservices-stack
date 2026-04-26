@@ -12,4 +12,4 @@ RUN chmod +x /init-wp.sh
 
 EXPOSE 9000
 
-CMD [ "/init-wp.sh" ]
+ENTRYPOINT [ "/init-wp.sh" ]

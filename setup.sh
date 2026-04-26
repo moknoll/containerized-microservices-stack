@@ -4,12 +4,17 @@
 mkdir -p ./secrets
 
 # Generate secure random passwords (OpenSSL)
-openssl rand -base64 18 > ./secrets/mysql_root_password.txt
-openssl rand -base64 18 > ./secrets/mysql_password.txt
-cp ./secrets/mysql_password.txt ./secrets/wp_db_password.txt
-openssl rand -base64 18 > ./secrets/wp_admin_password.txt
+# openssl rand -base64 18 > ./secrets/mysql_root_password.txt
+# openssl rand -base64 18 > ./secrets/mysql_password.txt
+# cp ./secrets/mysql_password.txt ./secrets/wp_db_password.txt
+# openssl rand -base64 18 > ./secrets/wp_admin_password.txt
 
 # Restrict access to secrets (owner only)
+echo "default123" > ./secrets/mysql_root_password.txt
+echo "default123" > ./secrets/mysql_password.txt
+cp ./secrets/mysql_password.txt ./secrets/wp_db_password.txt
+echo "default123" > ./secrets/wp_admin_password.txt
+
 chmod 600 ./secrets/*.txt
 
 # Create .env file in srcs directory

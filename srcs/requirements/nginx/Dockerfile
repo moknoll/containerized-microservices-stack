@@ -13,4 +13,3 @@ COPY ./conf/default /etc/nginx/sites-available/default
 EXPOSE 443
 
 ENTRYPOINT [ "/init-nginx.sh" ]
-CMD ["nginx", "-g", "daemon off;"]
